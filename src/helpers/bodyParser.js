@@ -1,4 +1,4 @@
-const bodyParser = async (req) =>{   
+const bodyParser = async (req) => {
     let totalData = "";
 
     try {
@@ -20,5 +20,5 @@ const bodyParser = async (req) =>{
         throw new Error(`Error occurred while parsing request body: ${error.message}`);
     }
 }
-  
-  module.exports = {bodyParser}
+
+module.exports = { bodyParser }
