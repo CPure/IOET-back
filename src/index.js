@@ -1,5 +1,5 @@
 const http = require('http')
-const salary = require('./controllers/salary')
+const { salary } = require('./controllers/salary')
 
 const server = http.createServer(async (req, res)=>{
     const { url, method } = req
@@ -8,7 +8,7 @@ const server = http.createServer(async (req, res)=>{
     try{
         if(method === 'POST'){
             if (url === "/api/salary") {
-                salary.calculateSalary(req, res)
+                salary(req, res)
             }
             if(url !== "/api/salary"){
                 res.writeHead(404, 

@@ -1,19 +1,24 @@
-async function bodyParser(req) {
-    return new Promise((resolve, reject) => {
-      let totalData = "";
-      req
-        .on("error", err => {
-          console.error(err);
-          reject();
+const bodyParser = async (req) =>{   
+    let totalData = "";
+
+    try {
+        await new Promise((resolve, reject) => {
+            req
+                .on("error", err => {
+                    reject(err);
+                })
+                .on("data", chunk => {
+                    totalData += chunk;
+                })
+                .on("end", () => {
+                    req.body = JSON.parse(totalData);
+                    resolve();
+                })
         })
-        .on("data", chunk => {
-          totalData += chunk;
-        })
-        .on('end', () => {
-            req.body = JSON.parse(totalData);
-          resolve();
-        })
-    });
-  }
+        return req.body;
+    } catch (error) {
+        throw new Error(`Error occurred while parsing request body: ${error.message}`);
+    }
+}
   
-  module.exports = {bodyParser};
+  module.exports = {bodyParser}

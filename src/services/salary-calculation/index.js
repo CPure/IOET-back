@@ -12,8 +12,10 @@ const calculateSalary = (employeesHours) => {
     const employeePayments = []
     for(let employeeHour of employeesHours){
         const [name, scheduleString] = employeeHour.split('=')
-        const schedule = scheduleString.split(',')        
-        employeePayments.push(`The amount to pay ${name} is: ${getPaymentByEmployee(schedule)} USD`)
+        const schedule = scheduleString?.split(',')
+        if(schedule) {
+            employeePayments.push(`The amount to pay ${name} is: ${getPaymentByEmployee(schedule)} USD`)
+        }
     }    
     return employeePayments
 }
@@ -41,7 +43,7 @@ const getPaymentByEmployee = (schedule) =>{
           }
   
           const rate = rates[dayOfWeek][rateIndex]
-          const shiftPay = rate * (endTime - startTime) / 60;
+          const shiftPay = rate * (endTime - startTime) / 60
           payment += shiftPay
         }
     }
