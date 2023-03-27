@@ -8,13 +8,17 @@ const HEADER = {
 }
 const salary = async (req, res) => {
     const body = await bodyParser(req)
-    if (!body || Object.keys(body).length === 0) {
+
+    if (!body || Object.keys(body).length === 0 || body?.data?.length === 0) {
+
         res.writeHead(500,
             HEADER)
         res.write(JSON.stringify({
             salaries: null,
             message: 'Error parsing request body'
         }))
+        res.end()
+        return res
     }
 
     try {
